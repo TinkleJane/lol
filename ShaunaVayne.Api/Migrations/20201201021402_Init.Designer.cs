@@ -10,7 +10,7 @@ using ShaunaVayne.Data;
 namespace ShaunaVayne.Api.Migrations
 {
     [DbContext(typeof(DemaciaContext))]
-    [Migration("20201118070258_Init")]
+    [Migration("20201201021402_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,15 @@ namespace ShaunaVayne.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -16,6 +16,9 @@ namespace ShaunaVayne.Models
 
     public class Book:Entity
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
+        public int Price { get; set; }
     }
 }

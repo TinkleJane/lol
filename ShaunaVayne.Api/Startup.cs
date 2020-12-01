@@ -10,6 +10,9 @@ using ShaunaVayne.Infrastructure.Security;
 using ShaunaVayne.Infrastructure.Validation;
 using System.Reflection;
 using ShaunaVayne.CommandHandler;
+using ShaunaVayne.Bus.Command;
+using ShaunaVayne.Bus;
+using ShaunaVayne.Api.ModelBinder;
 
 namespace ShaunaVayne.Api
 {
@@ -25,13 +28,19 @@ namespace ShaunaVayne.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var modelBinder = new GeneralCommandModelBinderProvider();
             services.AddDbContext<DemaciaContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("demacia"),
                     opt => { opt.MigrationsAssembly(typeof(Startup).Assembly.FullName); }));
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, modelBinder);
+            });
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
                 Assembly.Load("ShaunaVayne.CommandHandler"));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            services.AddScoped(typeof(ICommandHandler<>),typeof(GeneralCommandHandler<>));
+            services.AddScoped<IBus, InMemoryBus>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>(); 
         }

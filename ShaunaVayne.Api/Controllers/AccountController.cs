@@ -5,6 +5,8 @@ using ShaunaVayne.UICommands.Account;
 using MediatR;
 using System;
 using ShaunaVayne.Models;
+using ShaunaVayne.Bus;
+using ShaunaVayne.UICommands.General;
 
 namespace ShaunaVayne.Api.Controllers
 {
@@ -14,12 +16,12 @@ namespace ShaunaVayne.Api.Controllers
     {
         
         private readonly ILogger<AccountController> _logger;
-        private readonly IMediator _mediator;
+        private readonly IBus _bus;
 
-        public AccountController(ILogger<AccountController> logger, IMediator mediator)
+        public AccountController(ILogger<AccountController> logger, IBus bus)
         {
             _logger = logger;
-            _mediator = mediator;
+            _bus = bus;
         }
 
 
@@ -27,44 +29,39 @@ namespace ShaunaVayne.Api.Controllers
         [Route("create")]
         public void Create(CreateAccountCommand command)
         {
-            _mediator.Send(command);
+            _bus.Send(command);
         }
 
 
         [HttpGet]
         [Route("test")]
-        public void Test()
+        public async Task TestAsync()
         {
             var command = new CreateAccountCommand { UserName = "moto", Password = "123456", ConfirmPassword = "123456" };
-            _mediator.Send(command);
+            await _bus.Send(command);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("book/add")]
-        public async Task AddBook()
+        public async Task AddBook(AddCommand<Book> command)
         {
-            //var command = new AddBookCommand { Name = "Learning C#" };
-            //var command = new AddCommand<Book>
-            //{
-            //    Value = new Book { Name = "Professional C#"}
-            //};
-            //await _mediator.Send(command);
+            await _bus.Send(command);
         }
 
-        [HttpGet]
-        [Route("book/edit")]
-        public async Task EditBook()
-        {
-            var command = new EditBookCommand { Name = "Moto" };
-            await _mediator.Send(command);
-        }
+        //[HttpGet]
+        //[Route("book/edit")]
+        //public async Task EditBook()
+        //{
+        //    var command = new EditBookCommand { Name = "Moto" };
+        //    await _mediator.Send(command);
+        //}
 
-        [HttpGet]
-        [Route("book/delete/{id}")]
-        public async Task DeleteBook(Guid id)
-        {
-            var command = new DeleteBookCommand { Id = id };
-            await _mediator.Send(command);
-        }
+        //[HttpGet]
+        //[Route("book/delete/{id}")]
+        //public async Task DeleteBook(Guid id)
+        //{
+        //    var command = new DeleteBookCommand { Id = id };
+        //    await _mediator.Send(command);
+        //}
     }
 }
