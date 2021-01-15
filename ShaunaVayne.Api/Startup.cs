@@ -13,6 +13,11 @@ using ShaunaVayne.CommandHandler;
 using ShaunaVayne.Bus.Command;
 using ShaunaVayne.Bus;
 using ShaunaVayne.Api.ModelBinder;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using System.Linq;
+using ShaunaVayne.Api.StartupExtensions;
+using Serilog;
 
 namespace ShaunaVayne.Api
 {
@@ -36,8 +41,48 @@ namespace ShaunaVayne.Api
             {
                 options.ModelBinderProviders.Insert(0, modelBinder);
             });
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly,
-                Assembly.Load("ShaunaVayne.CommandHandler"));
+#if DEBUG
+            services.AddSwaggerGen(x=>
+            {
+                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat = "JWT"
+                });
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {   new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new string[] {}}
+                });
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Demacia API V1", Version = "v1" });
+                x.CustomSchemaIds(y => y.FullName);
+                x.DocInclusionPredicate((version, apiDescription) => true);
+                x.TagActionsBy(y => new List<string> { y.GroupName });
+            });
+#endif
+            var allowSites = Configuration.GetSection("AllowedSites").GetChildren().Select(x => x.Value).ToArray();
+            services.AddCors(
+                options => options.AddPolicy("AllowCors",
+                    builder =>
+                    {
+                        builder
+                            .WithOrigins(allowSites)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    }));
+            services.AddJwt();
+            services.AddLogging(x =>
+            {
+                x.AddSerilog();
+            });
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly, Assembly.Load("ShaunaVayne.CommandHandler"));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
             services.AddScoped(typeof(ICommandHandler<>),typeof(GeneralCommandHandler<>));
             services.AddScoped<IBus, InMemoryBus>();
@@ -52,6 +97,18 @@ namespace ShaunaVayne.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowCors");
+
+
+#if DEBUG
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Demacia API V1");
+                c.RoutePrefix = string.Empty;
+            });
+#endif
 
             app.UseRouting();
 

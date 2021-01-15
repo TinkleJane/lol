@@ -22,6 +22,8 @@ namespace ShaunaVayne.Api.ModelBinder
 
             var subType = bindingContext.ModelType.GenericTypeArguments.First();
             var subInstance = JsonConvert.DeserializeObject(requestContent, subType);
+            
+            var x = bindingContext.ModelState.IsValid;
 
             var instance = Activator.CreateInstance(bindingContext.ModelType);
             var propertyInfo = bindingContext.ModelType.GetProperty("Value");

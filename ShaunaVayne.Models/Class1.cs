@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ShaunaVayne.Validator;
 
 namespace ShaunaVayne.Models
 {
@@ -18,7 +19,8 @@ namespace ShaunaVayne.Models
     {
         [Required]
         public string Name { get; set; }
-        [Required]
+
+        [GreaterThan(0)]
         public int Price { get; set; }
     }
 }

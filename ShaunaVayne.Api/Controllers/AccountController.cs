@@ -33,19 +33,31 @@ namespace ShaunaVayne.Api.Controllers
         }
 
 
-        [HttpGet]
-        [Route("test")]
-        public async Task TestAsync()
-        {
-            var command = new CreateAccountCommand { UserName = "moto", Password = "123456", ConfirmPassword = "123456" };
-            await _bus.Send(command);
-        }
+        //[HttpGet]
+        //[Route("test")]
+        //public async Task TestAsync()
+        //{
+        //    var command = new CreateAccountCommand 
+        //    { 
+        //        UserName = "moto", 
+        //        Password = "123456", 
+        //        ConfirmPassword = "123456" 
+        //    };
+        //    await _bus.Send(command);
+        //}
 
         [HttpPost]
         [Route("book/add")]
         public async Task AddBook(AddCommand<Book> command)
         {
             await _bus.Send(command);
+        }
+
+        [HttpGet]
+        [Route("test")]
+        public void Test(int id)
+        {
+            _logger.LogError($"id is {id}");
         }
 
         //[HttpGet]

@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.UICommands", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Queries", "ShaunaVayne.Queries\ShaunaVayne.Queries.csproj", "{8980FF38-01C7-4802-B576-5D8BBCFFA88A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaunaVayne.Bus", "ShaunaVayne.Bus\ShaunaVayne.Bus.csproj", "{9AA3BDD4-611F-4C02-B623-A9B1649266FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Bus", "ShaunaVayne.Bus\ShaunaVayne.Bus.csproj", "{9AA3BDD4-611F-4C02-B623-A9B1649266FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaunaVayne.Validator", "ShaunaVayne.Validator\ShaunaVayne.Validator.csproj", "{60B4B360-DFAD-444E-8DE3-27F28FBC0824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{9AA3BDD4-611F-4C02-B623-A9B1649266FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AA3BDD4-611F-4C02-B623-A9B1649266FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AA3BDD4-611F-4C02-B623-A9B1649266FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{A8ACA595-658A-4084-8A24-6F1F587DEC97} = {6C950756-EC21-4A79-B9BC-7A4940DB36C8}
 		{8980FF38-01C7-4802-B576-5D8BBCFFA88A} = {6C950756-EC21-4A79-B9BC-7A4940DB36C8}
 		{9AA3BDD4-611F-4C02-B623-A9B1649266FB} = {55E1EF40-D545-4BFC-A4F8-0EE55343FC7F}
+		{60B4B360-DFAD-444E-8DE3-27F28FBC0824} = {B2CE8B8A-939C-4E84-82F9-13F119FCA5C3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17BFC9F9-D60C-4614-AEF3-E3BB3981259A}
