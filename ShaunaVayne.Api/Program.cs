@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using System.IO;
 
 namespace ShaunaVayne.Api
 {
@@ -12,10 +10,10 @@ namespace ShaunaVayne.Api
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Error()
+                .MinimumLevel.Information()
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "{Timestamp:HH:mm:ss} [{Level}] {SourceContext} {Message}{NewLine}{Exception}", theme: AnsiConsoleTheme.Code)
-                .WriteTo.File("logs/log-{Date}.log")
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .WriteTo.File("logs/log-.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             Log.Logger.Information("Test -- MOTO");
             CreateHostBuilder(args).Build().Run();

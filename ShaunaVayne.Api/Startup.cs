@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ShaunaVayne.Api.StartupExtensions;
 using Serilog;
+using Microsoft.AspNetCore.Mvc;
+using ShaunaVayne.Common.Filters;
 
 namespace ShaunaVayne.Api
 {
@@ -41,7 +43,7 @@ namespace ShaunaVayne.Api
             {
                 options.ModelBinderProviders.Insert(0, modelBinder);
             });
-#if DEBUG
+#if DEBUG   
             services.AddSwaggerGen(x=>
             {
                 x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -64,6 +66,7 @@ namespace ShaunaVayne.Api
                 x.CustomSchemaIds(y => y.FullName);
                 x.DocInclusionPredicate((version, apiDescription) => true);
                 x.TagActionsBy(y => new List<string> { y.GroupName });
+                x.SupportNonNullableReferenceTypes();
             });
 #endif
             var allowSites = Configuration.GetSection("AllowedSites").GetChildren().Select(x => x.Value).ToArray();
@@ -82,6 +85,12 @@ namespace ShaunaVayne.Api
             {
                 x.AddSerilog();
             });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressInferBindingSourcesForParameters = true;
+            });
+
+
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly, Assembly.Load("ShaunaVayne.CommandHandler"));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
             services.AddScoped(typeof(ICommandHandler<>),typeof(GeneralCommandHandler<>));
@@ -99,7 +108,6 @@ namespace ShaunaVayne.Api
             }
 
             app.UseCors("AllowCors");
-
 
 #if DEBUG
             app.UseSwagger();

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Api", "ShaunaVayne.Api\ShaunaVayne.Api.csproj", "{6686334E-5F5F-4B34-A60D-F44F08EEC5F8}"
 EndProject
@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Queries", "Shau
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Bus", "ShaunaVayne.Bus\ShaunaVayne.Bus.csproj", "{9AA3BDD4-611F-4C02-B623-A9B1649266FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaunaVayne.Validator", "ShaunaVayne.Validator\ShaunaVayne.Validator.csproj", "{60B4B360-DFAD-444E-8DE3-27F28FBC0824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaunaVayne.Validator", "ShaunaVayne.Validator\ShaunaVayne.Validator.csproj", "{60B4B360-DFAD-444E-8DE3-27F28FBC0824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaunaVayne.Common", "ShaunaVayne.Common\ShaunaVayne.Common.csproj", "{8C0441E1-38B3-4551-854B-9E555D2642C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60B4B360-DFAD-444E-8DE3-27F28FBC0824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0441E1-38B3-4551-854B-9E555D2642C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0441E1-38B3-4551-854B-9E555D2642C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0441E1-38B3-4551-854B-9E555D2642C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0441E1-38B3-4551-854B-9E555D2642C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{8980FF38-01C7-4802-B576-5D8BBCFFA88A} = {6C950756-EC21-4A79-B9BC-7A4940DB36C8}
 		{9AA3BDD4-611F-4C02-B623-A9B1649266FB} = {55E1EF40-D545-4BFC-A4F8-0EE55343FC7F}
 		{60B4B360-DFAD-444E-8DE3-27F28FBC0824} = {B2CE8B8A-939C-4E84-82F9-13F119FCA5C3}
+		{8C0441E1-38B3-4551-854B-9E555D2642C6} = {55E1EF40-D545-4BFC-A4F8-0EE55343FC7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17BFC9F9-D60C-4614-AEF3-E3BB3981259A}

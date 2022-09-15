@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ShaunaVayne.Api.ModelBinder
@@ -19,6 +21,24 @@ namespace ShaunaVayne.Api.ModelBinder
 
             var requestReader = new StreamReader(bindingContext.ActionContext.HttpContext.Request.Body);
             var requestContent = await requestReader.ReadToEndAsync();
+
+            if (string.IsNullOrEmpty(requestContent))
+            {
+                var queryList = bindingContext.ActionContext.HttpContext.Request.Query;
+                var json = "{";
+                for (var i = 0; i < queryList.Count; i++)
+                {
+                    var q = queryList.ElementAt(i);
+                    json += $"{q.Key.Replace("Value.", "")}:'{q.Value}'";
+                    if (i < queryList.Count - 1)
+                    {
+                        json += ", ";
+                    }
+                }
+
+                json += "}";
+                requestContent = json;
+            }
 
             var subType = bindingContext.ModelType.GenericTypeArguments.First();
             var subInstance = JsonConvert.DeserializeObject(requestContent, subType);
