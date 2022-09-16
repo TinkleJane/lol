@@ -19,7 +19,6 @@ using System.Linq;
 using ShaunaVayne.Api.StartupExtensions;
 using Serilog;
 using Microsoft.AspNetCore.Mvc;
-using ShaunaVayne.Common.Filters;
 
 namespace ShaunaVayne.Api
 {
@@ -81,10 +80,6 @@ namespace ShaunaVayne.Api
                             .AllowCredentials();
                     }));
             services.AddJwt();
-            services.AddLogging(x =>
-            {
-                x.AddSerilog();
-            });
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressInferBindingSourcesForParameters = true;
